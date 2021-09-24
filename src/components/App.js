@@ -2,23 +2,56 @@
 import '../styles/App.scss';
 import initialData from '../data/clubs.json'
 // importamos useEffect además de useState
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
 
   const [data, setData] = useState(initialData);
-  const weekDays = [data.id].openOnWeekdays ? 'Si' : 'No';
-  const weekEnd = [data.id].openOnWeekend ? 'Si' : 'No';
+  const [name, setName] = useState("");
+  const [openOnWeekdays, setOpenOnWeekdays] = useState(false);
+  const [openOnWeekend, setOpenOnWeekend] = useState(false);
 
-  const htmlClubList = data.map((data, index) => (
-    <li className="club" key={index} id={index}>
-      <h3>{data.name}</h3>
-      <button>X</button>
-      <p>Abierto entre semana : {weekDays}</p>
-      <p>Abierto el fin de semana : {weekEnd}</p>
-    </li>
-  )
-  );
+  const handleName = (ev) => {
+    setName(ev.target.value)
+  };
+
+  //Recogemos el valor de los Checked
+  const handleWeek = (ev) => {
+    setOpenOnWeekdays(ev.target.checked)
+  };
+
+  const handleWeekEnd = (ev) => {
+    setOpenOnWeekend(ev.target.checked)
+  };
+
+  //Añadimos la función que creará un nuevo objeto y recogerá los datos introducidos por la usuaria y 
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    const newClub = {
+      "name": name,
+      //Actualmente no recoge el valor del checkeo de lo siguiente
+      "openOnWeekdays": openOnWeekdays,
+      "openOnWeekend": openOnWeekend
+    };
+    //añadimos con el spread nuevos datos
+    setData([...data, newClub])
+  };
+
+  const renderClubList = () => {
+    return data.map((club, index) => {
+      const weekDays = club.openOnWeekdays ? 'Si' : 'No';
+      const weekEnd = club.openOnWeekend ? 'Si' : 'No';
+      return (
+        <li className="club" key={index} id={index}>
+          <h3>{club.name}</h3>
+          <button>X</button>
+          <p>Abierto entre semana : {weekDays}</p>
+          <p>Abierto el fin de semana : {weekEnd}</p>
+        </li>
+      )
+    }
+    )
+  };
 
   return (
     <div className="App">
@@ -33,21 +66,18 @@ function App() {
         </form>
       </header>
       <main>
-        <ul>{htmlClubList}
+        <ul>{renderClubList()}
         </ul>
         <section>
           <h2>Añadir un nuevo club</h2>
           <form>
-            <label htmlFor="name"> Nombre del club
-              <input type="text" />
-            </label>
-            <label htmlFor="week"> ¿Abre entre semana?
-              <input type="checkbox" />
-            </label>
-            <label htmlFor="weekend"> ¿Abre los fines de semana?
-              <input type="checkbox" />
-            </label>
-            <input type="submit" value="Añadir un nuevo club" />
+            <label htmlFor="name"> Nombre del club</label>
+            <input type="text" value={name} onChange={handleName} />
+            <label htmlFor="week" onChange={handleWeek}> ¿Abre entre semana?</label>
+            <input type="checkbox" />
+            <label htmlFor="weekend"> ¿Abre los fines de semana?</label>
+            <input type="checkbox" onChange={handleWeekEnd} />
+            <input type="submit" value="Añadir un nuevo club" onClick={handleSubmit} />
           </form>
         </section>
       </main>
