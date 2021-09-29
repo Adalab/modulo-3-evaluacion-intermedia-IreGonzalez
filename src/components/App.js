@@ -73,8 +73,8 @@ function App() {
           <form>
             <label htmlFor="name"> Nombre del club</label>
             <input type="text" value={name} onChange={handleName} />
-            <label htmlFor="week" onChange={handleWeek}> ¿Abre entre semana?</label>
-            <input type="checkbox" />
+            <label htmlFor="week"> ¿Abre entre semana?</label>
+            <input type="checkbox" onChange={handleWeek} />
             <label htmlFor="weekend"> ¿Abre los fines de semana?</label>
             <input type="checkbox" onChange={handleWeekEnd} />
             <input type="submit" value="Añadir un nuevo club" onClick={handleSubmit} />
