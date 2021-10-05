@@ -18,10 +18,12 @@ function App() {
   //Recogemos el valor de los Checked
   const handleWeek = (ev) => {
     setOpenOnWeekdays(ev.target.checked)
+    console.log('weekdays', openOnWeekdays);
   };
 
   const handleWeekEnd = (ev) => {
     setOpenOnWeekend(ev.target.checked)
+    console.log('weekend', openOnWeekend);
   };
 
   //Añadimos la función que creará un nuevo objeto y recogerá los datos introducidos por la usuaria y 
@@ -29,13 +31,18 @@ function App() {
     ev.preventDefault();
     const newClub = {
       "name": name,
-      //Actualmente no recoge el valor del checkeo de lo siguiente
       "openOnWeekdays": openOnWeekdays,
       "openOnWeekend": openOnWeekend
     };
     //añadimos con el spread nuevos datos
     setData([...data, newClub])
   };
+  const handleReset = (ev) => {
+    ev.preventDefault();
+    setOpenOnWeekdays(false);
+    setOpenOnWeekend(false);
+    setName("");
+  }
 
   const renderClubList = () => {
     return data.map((club, index) => {
@@ -74,10 +81,11 @@ function App() {
             <label htmlFor="name"> Nombre del club</label>
             <input type="text" value={name} onChange={handleName} />
             <label htmlFor="week"> ¿Abre entre semana?</label>
-            <input type="checkbox" onChange={handleWeek} />
+            <input type="checkbox" checked={openOnWeekdays} onChange={handleWeek} />
             <label htmlFor="weekend"> ¿Abre los fines de semana?</label>
-            <input type="checkbox" onChange={handleWeekEnd} />
+            <input type="checkbox" checked={openOnWeekend} onChange={handleWeekEnd} />
             <input type="submit" value="Añadir un nuevo club" onClick={handleSubmit} />
+            <input type="button" value="Reset" onClick={handleReset} />
           </form>
         </section>
       </main>
