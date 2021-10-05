@@ -10,6 +10,7 @@ function App() {
   const [name, setName] = useState("");
   const [openOnWeekdays, setOpenOnWeekdays] = useState(false);
   const [openOnWeekend, setOpenOnWeekend] = useState(false);
+  const [toDelete, setToDelete] = useState("");
 
   const handleName = (ev) => {
     setName(ev.target.value)
@@ -37,12 +38,19 @@ function App() {
     //añadimos con el spread nuevos datos
     setData([...data, newClub])
   };
+
   const handleReset = (ev) => {
     ev.preventDefault();
     setOpenOnWeekdays(false);
     setOpenOnWeekend(false);
     setName("");
-  }
+  };
+
+  const handleDelete = (ev) => {
+    setToDelete(ev.target.id);
+    data.splice(toDelete, 1);
+    setData([...data]);
+  };
 
   const renderClubList = () => {
     return data.map((club, index) => {
@@ -51,7 +59,7 @@ function App() {
       return (
         <li className="club" key={index} id={index}>
           <h3>{club.name}</h3>
-          <button>X</button>
+          <button onClick={handleDelete}>X</button>
           <p>Abierto entre semana : {weekDays}</p>
           <p>Abierto el fin de semana : {weekEnd}</p>
         </li>
