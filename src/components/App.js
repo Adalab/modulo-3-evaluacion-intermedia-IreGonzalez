@@ -1,6 +1,7 @@
 
+// import '../styles/Reset.scss';
 import '../styles/App.scss';
-import initialData from '../data/clubs.json'
+import initialData from '../data/knit.json'
 // importamos useEffect además de useState
 import { useState } from 'react';
 
@@ -8,8 +9,8 @@ function App() {
 
   const [data, setData] = useState(initialData);
   const [name, setName] = useState("");
-  const [openOnWeekdays, setOpenOnWeekdays] = useState(false);
-  const [openOnWeekend, setOpenOnWeekend] = useState(false);
+  const [oneBoolean, setOneBoolean] = useState(false);
+  const [twoBoolean, setTwoBoolean] = useState(false);
   const [toDelete, setToDelete] = useState("");
 
   const handleName = (ev) => {
@@ -17,14 +18,14 @@ function App() {
   };
 
   //Recogemos el valor de los Checked
-  const handleWeek = (ev) => {
-    setOpenOnWeekdays(ev.target.checked)
-    console.log('weekdays', openOnWeekdays);
+  const handleOneBoolean = (ev) => {
+    setOneBoolean(ev.target.checked)
+    console.log('weekdays', oneBoolean);
   };
 
-  const handleWeekEnd = (ev) => {
-    setOpenOnWeekend(ev.target.checked)
-    console.log('weekend', openOnWeekend);
+  const handleTwoBoolean = (ev) => {
+    setTwoBoolean(ev.target.checked)
+    console.log('weekend', twoBoolean);
   };
 
   //Añadimos la función que creará un nuevo objeto y recogerá los datos introducidos por la usuaria y 
@@ -32,8 +33,8 @@ function App() {
     ev.preventDefault();
     const newClub = {
       "name": name,
-      "openOnWeekdays": openOnWeekdays,
-      "openOnWeekend": openOnWeekend
+      "oneBoolean": oneBoolean,
+      "twoBoolean": twoBoolean
     };
     //añadimos con el spread nuevos datos
     setData([...data, newClub])
@@ -41,8 +42,8 @@ function App() {
 
   const handleReset = (ev) => {
     ev.preventDefault();
-    setOpenOnWeekdays(false);
-    setOpenOnWeekend(false);
+    setOneBoolean(false);
+    setTwoBoolean(false);
     setName("");
   };
 
@@ -54,14 +55,14 @@ function App() {
 
   const renderClubList = () => {
     return data.map((club, index) => {
-      const weekDays = club.openOnWeekdays ? 'Si' : 'No';
-      const weekEnd = club.openOnWeekend ? 'Si' : 'No';
+      const oneBoolean = club.oneBoolean ? 'Si' : 'No';
+      const twoBoolean = club.twoBoolean ? 'Si' : 'No';
       return (
         <li className="club" key={index} id={index}>
           <h3>{club.name}</h3>
           <button onClick={handleDelete}>X</button>
-          <p>Abierto entre semana : {weekDays}</p>
-          <p>Abierto el fin de semana : {weekEnd}</p>
+          <p>Encargo : {oneBoolean}</p>
+          <p>Fecha de entrega : {twoBoolean}</p>
         </li>
       )
     }
@@ -71,31 +72,30 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Mis clubs</h1>
+        <h1>Knit projects</h1>
         <form>
           <select name="show" id="show">
             <option value="all">Todos</option>
-            <option value="week">Los que abren entre semana</option>
-            <option value="weekend">Los que abren el fin de semana</option>
+            <option value="week">Encargos</option>
+            <option value="weekend">Fecha de Entrega</option>
           </select>
         </form>
       </header>
       <main>
         <ul>{renderClubList()}
         </ul>
-        <section>
-          <h2>Añadir un nuevo club</h2>
-          <form>
-            <label htmlFor="name"> Nombre del club</label>
-            <input type="text" value={name} onChange={handleName} />
-            <label htmlFor="week"> ¿Abre entre semana?</label>
-            <input type="checkbox" checked={openOnWeekdays} onChange={handleWeek} />
-            <label htmlFor="weekend"> ¿Abre los fines de semana?</label>
-            <input type="checkbox" checked={openOnWeekend} onChange={handleWeekEnd} />
-            <input type="submit" value="Añadir un nuevo club" onClick={handleSubmit} />
-            <input type="button" value="Reset" onClick={handleReset} />
+        <footer className="footer">
+          <h2 className="footer_title">Añadir un nuevo Proyecto</h2>
+          <form className="footer__form">
+            <input className="footer__form--input" type="text" placeholder="Nombre del proyecto" value={name} onChange={handleName} />
+            <label className="footer__form--label" htmlFor="week"> ¿Encargo?</label>
+            <input className="footer__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
+            <label className="footer__form--label" htmlFor="weekend"> ¿fecha concreta de entrega?</label>
+            <input className="footer__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
+            <input className="footer__form--input" type="submit" value="Añadir un nuevo proyecto" onClick={handleSubmit} />
+            <input className="footer__form--input" type="button" value="Reset" onClick={handleReset} />
           </form>
-        </section>
+        </footer>
       </main>
 
     </div>

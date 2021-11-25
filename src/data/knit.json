@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Body Estrella",
+        "oneBoolean": true,
+        "twoBoolean": true
+    },
+    {
+        "name": "Mantita Grannys",
+        "oneBoolean": false,
+        "twoBoolean": false
+    },
+    {
+        "name": "Muñeca Luna",
+        "oneBoolean": false,
+        "twoBoolean": false
+    },
+    {
+        "name": "Muñeco Sol",
+        "oneBoolean": false,
+        "twoBoolean": false
+    }
+]
