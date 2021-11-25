@@ -20,12 +20,12 @@ function App() {
   //Recogemos el valor de los Checked
   const handleOneBoolean = (ev) => {
     setOneBoolean(ev.target.checked)
-    console.log('weekdays', oneBoolean);
+    console.log('oneBoolean', oneBoolean);
   };
 
   const handleTwoBoolean = (ev) => {
     setTwoBoolean(ev.target.checked)
-    console.log('weekend', twoBoolean);
+    console.log('twoBoolean', twoBoolean);
   };
 
   //Añadimos la función que creará un nuevo objeto y recogerá los datos introducidos por la usuaria y 
@@ -76,8 +76,8 @@ function App() {
         <form>
           <select name="show" id="show">
             <option value="all">Todos</option>
-            <option value="week">Encargos</option>
-            <option value="weekend">Fecha de Entrega</option>
+            <option value="oneBoolean">Encargos</option>
+            <option value="twoBoolean">Fecha de Entrega</option>
           </select>
         </form>
       </header>
@@ -88,9 +88,9 @@ function App() {
           <h2 className="footer_title">Añadir un nuevo Proyecto</h2>
           <form className="footer__form">
             <input className="footer__form--input" type="text" placeholder="Nombre del proyecto" value={name} onChange={handleName} />
-            <label className="footer__form--label" htmlFor="week"> ¿Encargo?</label>
+            <label className="footer__form--label" htmlFor="oneBoolean"> ¿Encargo?</label>
             <input className="footer__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
-            <label className="footer__form--label" htmlFor="weekend"> ¿fecha concreta de entrega?</label>
+            <label className="footer__form--label" htmlFor="twoBoolean"> ¿fecha concreta de entrega?</label>
             <input className="footer__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
             <input className="footer__form--input" type="submit" value="Añadir un nuevo proyecto" onClick={handleSubmit} />
             <input className="footer__form--input" type="button" value="Reset" onClick={handleReset} />
