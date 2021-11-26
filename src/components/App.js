@@ -100,15 +100,18 @@ function App() {
         </ul>
       </main>
       <footer className="footer">
-        <h2 className="footer_title">Añadir un nuevo Proyecto</h2>
         <form className="footer__form">
-          <input className="footer__form--input" type="text" placeholder="Nombre del proyecto" value={name} onChange={handleName} />
-          <label className="footer__form--label" htmlFor="oneBoolean"> ¿Encargo?</label>
-          <input className="footer__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
-          <label className="footer__form--label" htmlFor="twoBoolean"> ¿Empezado?</label>
-          <input className="footer__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
-          <input className="footer__form--input" type="submit" value="Añadir un nuevo proyecto" onClick={handleSubmit} />
-          <input className="footer__form--input" type="button" value="Reset" onClick={handleReset} />
+          <input className="footer__form--input text" type="text" placeholder="Nuevo proyecto" value={name} onChange={handleName} />
+          <div className="checkbox">
+            <label className="footer__form--label" htmlFor="oneBoolean"> Encargo</label>
+            <input className="footer__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
+            <label className="footer__form--label" htmlFor="twoBoolean"> Empezado</label>
+            <input className="footer__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
+          </div>
+          <div className="buttons">
+            <input className="footer__form--input" type="submit" value="Añadir" onClick={handleSubmit} />
+            <input className="footer__form--input" type="button" value="Reset" onClick={handleReset} />
+          </div>
         </form>
       </footer>
 
