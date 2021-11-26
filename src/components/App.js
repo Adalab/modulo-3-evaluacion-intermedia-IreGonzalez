@@ -75,8 +75,10 @@ function App() {
           <li className="main__unit" key={index} id={index}>
             <button className="main__unit--close" onClick={handleDelete}>X</button>
             <h3 className="main__unit--title">{unit.name}</h3>
-            <p className="main__unit--boolean">Encargo : {oneBoolean}</p>
-            <p className="main__unit--boolean">Empezado : {twoBoolean}</p>
+            <div className="main__unit--boolean">
+              <p>Encargo : {oneBoolean}</p>
+              <p>Empezado : {twoBoolean}</p>
+            </div>
           </li>
         )
       }
@@ -87,13 +89,11 @@ function App() {
     <div className="App">
       <header className="header">
         <h1 className="header__title">Knit projects</h1>
-        <form className="header__form">
-          <select className="header__form--select" name="show" id="show" value={filter} onChange={handleFilter}>
-            <option value="all">Todos</option>
-            <option value="oneBoolean">Encargos</option>
-            <option value="twoBoolean">Empezados</option>
-          </select>
-        </form>
+        <select className="header__select" name="show" id="show" value={filter} onChange={handleFilter}>
+          <option value="all">Todos</option>
+          <option value="oneBoolean">Encargos</option>
+          <option value="twoBoolean">Empezados</option>
+        </select>
       </header>
       <main className="main">
         <ul>{renderList()}
