@@ -1,4 +1,62 @@
 body{
-    background-image: url(../images/cover-knit.jpg);
+    background:linear-gradient(bottom,rgba(255,255,255,0), rgba(255,255,255,1) 90%), url(../images/cover-knit.jpg) ;
+    background:linear-gradient(to top,rgba(255,255,255,0), rgba(255,255,255,1) 90%), url(../images/cover-knit.jpg) ;
     background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__title{
+        position: fixed;
+        font-family: 'Nanum Pen Script', cursive;
+        font-size: 40px;
+        color: rgb(80, 158, 189);
+        text-align: center;
+        padding: 5px;
+        width: 100%;
+        background-color: white;
+    }
+    &__form{
+        &--select{
+            margin: 80px 0 20px 0;
+            background-color: rgb(133, 240, 222);
+            border-radius: 5px;
+            color: rgb(80, 158, 189);
+        }
+    }
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__unit{
+        background-color: rgb(133, 240, 222);
+        border: 5px solid white;
+        border-radius: 10px;
+        width: 60vw;
+        height: 60vh;
+        margin:10px 0 15px 0;
+
+        &--close{
+            padding: 5px;
+            border-radius: 50%;
+            margin: 3px;
+            background-color: rgb(80, 158, 189);
+        }
+        &--title{
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 50px;
+            color: rgb(80, 158, 189);
+            text-align: center;
+        }
+        &--boolean{
+
+        }
+    }
 }

@@ -1,5 +1,5 @@
 
-// import '../styles/Reset.scss';
+import '../styles/Reset.scss';
 import '../styles/App.scss';
 import initialData from '../data/knit.json'
 // importamos useEffect además de useState
@@ -31,13 +31,13 @@ function App() {
   //Añadimos la función que creará un nuevo objeto y recogerá los datos introducidos por la usuaria y 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    const newClub = {
+    const newUnit = {
       "name": name,
       "oneBoolean": oneBoolean,
       "twoBoolean": twoBoolean
     };
     //añadimos con el spread nuevos datos
-    setData([...data, newClub])
+    setData([...data, newUnit])
   };
 
   const handleReset = (ev) => {
@@ -53,16 +53,16 @@ function App() {
     setData([...data]);
   };
 
-  const renderClubList = () => {
-    return data.map((club, index) => {
-      const oneBoolean = club.oneBoolean ? 'Si' : 'No';
-      const twoBoolean = club.twoBoolean ? 'Si' : 'No';
+  const renderList = () => {
+    return data.map((unit, index) => {
+      const oneBoolean = unit.oneBoolean ? 'Si' : 'No';
+      const twoBoolean = unit.twoBoolean ? 'Si' : 'No';
       return (
-        <li className="club" key={index} id={index}>
-          <h3>{club.name}</h3>
-          <button onClick={handleDelete}>X</button>
-          <p>Encargo : {oneBoolean}</p>
-          <p>Fecha de entrega : {twoBoolean}</p>
+        <li className="main__unit" key={index} id={index}>
+          <button className="main__unit--close" onClick={handleDelete}>X</button>
+          <h3 className="main__unit--title">{unit.name}</h3>
+          <p className="main__unit--boolean">Encargo : {oneBoolean}</p>
+          <p className="main__unit--boolean">Empezado : {twoBoolean}</p>
         </li>
       )
     }
@@ -71,32 +71,32 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <h1>Knit projects</h1>
-        <form>
-          <select name="show" id="show">
+      <header className="header">
+        <h1 className="header__title">Knit projects</h1>
+        <form className="header__form">
+          <select className="header__form--select" name="show" id="show">
             <option value="all">Todos</option>
             <option value="oneBoolean">Encargos</option>
-            <option value="twoBoolean">Fecha de Entrega</option>
+            <option value="twoBoolean">Empezados</option>
           </select>
         </form>
       </header>
-      <main>
-        <ul>{renderClubList()}
+      <main className="main">
+        <ul>{renderList()}
         </ul>
-        <footer className="footer">
-          <h2 className="footer_title">Añadir un nuevo Proyecto</h2>
-          <form className="footer__form">
-            <input className="footer__form--input" type="text" placeholder="Nombre del proyecto" value={name} onChange={handleName} />
-            <label className="footer__form--label" htmlFor="oneBoolean"> ¿Encargo?</label>
-            <input className="footer__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
-            <label className="footer__form--label" htmlFor="twoBoolean"> ¿fecha concreta de entrega?</label>
-            <input className="footer__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
-            <input className="footer__form--input" type="submit" value="Añadir un nuevo proyecto" onClick={handleSubmit} />
-            <input className="footer__form--input" type="button" value="Reset" onClick={handleReset} />
-          </form>
-        </footer>
       </main>
+      <footer className="footer">
+        <h2 className="footer_title">Añadir un nuevo Proyecto</h2>
+        <form className="footer__form">
+          <input className="footer__form--input" type="text" placeholder="Nombre del proyecto" value={name} onChange={handleName} />
+          <label className="footer__form--label" htmlFor="oneBoolean"> ¿Encargo?</label>
+          <input className="footer__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
+          <label className="footer__form--label" htmlFor="twoBoolean"> ¿Empezado?</label>
+          <input className="footer__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
+          <input className="footer__form--input" type="submit" value="Añadir un nuevo proyecto" onClick={handleSubmit} />
+          <input className="footer__form--input" type="button" value="Reset" onClick={handleReset} />
+        </form>
+      </footer>
 
     </div>
   );
