@@ -7,12 +7,12 @@
     {
         "name": "Mantita Grannys",
         "oneBoolean": false,
-        "twoBoolean": false
+        "twoBoolean": true
     },
     {
         "name": "Muñeca Luna",
         "oneBoolean": false,
-        "twoBoolean": false
+        "twoBoolean": true
     },
     {
         "name": "Muñeco Sol",

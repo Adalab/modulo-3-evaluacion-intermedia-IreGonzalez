@@ -12,6 +12,7 @@ function App() {
   const [oneBoolean, setOneBoolean] = useState(false);
   const [twoBoolean, setTwoBoolean] = useState(false);
   const [toDelete, setToDelete] = useState("");
+  const [filter, setFilter] = useState('all');
 
   const handleName = (ev) => {
     setName(ev.target.value)
@@ -40,6 +41,10 @@ function App() {
     setData([...data, newUnit])
   };
 
+  const handleFilter = (ev) => {
+    setFilter(ev.target.value);
+  };
+
   const handleReset = (ev) => {
     ev.preventDefault();
     setOneBoolean(false);
@@ -54,19 +59,28 @@ function App() {
   };
 
   const renderList = () => {
-    return data.map((unit, index) => {
-      const oneBoolean = unit.oneBoolean ? 'Si' : 'No';
-      const twoBoolean = unit.twoBoolean ? 'Si' : 'No';
-      return (
-        <li className="main__unit" key={index} id={index}>
-          <button className="main__unit--close" onClick={handleDelete}>X</button>
-          <h3 className="main__unit--title">{unit.name}</h3>
-          <p className="main__unit--boolean">Encargo : {oneBoolean}</p>
-          <p className="main__unit--boolean">Empezado : {twoBoolean}</p>
-        </li>
+    return data
+      .filter((unit) => {
+        if (filter === 'oneBoolean') {
+          return unit.oneBoolean === true;
+        } else if (filter === 'twoBoolean') {
+          return unit.twoBoolean === true;
+        }
+        return true;
+      })
+      .map((unit, index) => {
+        const oneBoolean = unit.oneBoolean ? 'Si' : 'No';
+        const twoBoolean = unit.twoBoolean ? 'Si' : 'No';
+        return (
+          <li className="main__unit" key={index} id={index}>
+            <button className="main__unit--close" onClick={handleDelete}>X</button>
+            <h3 className="main__unit--title">{unit.name}</h3>
+            <p className="main__unit--boolean">Encargo : {oneBoolean}</p>
+            <p className="main__unit--boolean">Empezado : {twoBoolean}</p>
+          </li>
+        )
+      }
       )
-    }
-    )
   };
 
   return (
@@ -74,7 +88,7 @@ function App() {
       <header className="header">
         <h1 className="header__title">Knit projects</h1>
         <form className="header__form">
-          <select className="header__form--select" name="show" id="show">
+          <select className="header__form--select" name="show" id="show" value={filter} onChange={handleFilter}>
             <option value="all">Todos</option>
             <option value="oneBoolean">Encargos</option>
             <option value="twoBoolean">Empezados</option>
