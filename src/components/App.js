@@ -90,9 +90,9 @@ function App() {
       <header className="header">
         <h1 className="header__title">Knit projects</h1>
         <select className="header__select" name="show" id="show" value={filter} onChange={handleFilter}>
-          <option value="all">Todos</option>
-          <option value="oneBoolean">Encargos</option>
-          <option value="twoBoolean">Empezados</option>
+          <option className="header__select--option" value="oneBoolean">Encargos</option>
+          <option className="header__select--option" value="all">Todos</option>
+          <option className="header__select--option" value="twoBoolean">Empezados</option>
         </select>
       </header>
       <main className="main">
@@ -113,8 +113,8 @@ function App() {
         </form>
       </main>
       <footer className="footer">
+        <h6 className="footer__copy">&copy;2021 By IreGonzalez</h6>
       </footer>
-
     </div >
   );
 }
