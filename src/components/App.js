@@ -90,32 +90,32 @@ function App() {
       <header className="header">
         <h1 className="header__title">Knit projects</h1>
         <select className="header__select" name="show" id="show" value={filter} onChange={handleFilter}>
-          <option value="all">Todos</option>
-          <option value="oneBoolean">Encargos</option>
-          <option value="twoBoolean">Empezados</option>
+          <option className="header__select--option" value="oneBoolean">Encargos</option>
+          <option className="header__select--option" value="all">Todos</option>
+          <option className="header__select--option" value="twoBoolean">Empezados</option>
         </select>
       </header>
       <main className="main">
-        <ul>{renderList()}
+        <ul className="main__list">{renderList()}
         </ul>
-      </main>
-      <footer className="footer">
-        <form className="footer__form">
-          <input className="footer__form--input text" type="text" placeholder="Nuevo proyecto" value={name} onChange={handleName} />
+        <form className="main__form">
+          <input className="main__form--input text" type="text" placeholder="Nuevo proyecto" value={name} onChange={handleName} />
           <div className="checkbox">
-            <label className="footer__form--label" htmlFor="oneBoolean"> Encargo</label>
-            <input className="footer__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
-            <label className="footer__form--label" htmlFor="twoBoolean"> Empezado</label>
-            <input className="footer__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
+            <label className="main__form--label" htmlFor="oneBoolean"> Encargo</label>
+            <input className="main__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
+            <label className="main__form--label" htmlFor="twoBoolean"> Empezado</label>
+            <input className="main__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
           </div>
           <div className="buttons">
-            <input className="footer__form--input" type="submit" value="Añadir" onClick={handleSubmit} />
-            <input className="footer__form--input" type="button" value="Reset" onClick={handleReset} />
+            <input className="main__form--input" type="submit" value="Añadir" onClick={handleSubmit} />
+            <input className="main__form--input" type="button" value="Reset" onClick={handleReset} />
           </div>
         </form>
+      </main>
+      <footer className="footer">
+        <h6 className="footer__copy">&copy;2021 By IreGonzalez</h6>
       </footer>
-
-    </div>
+    </div >
   );
 }
 
