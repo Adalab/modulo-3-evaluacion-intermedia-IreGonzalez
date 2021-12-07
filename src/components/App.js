@@ -96,26 +96,26 @@ function App() {
         </select>
       </header>
       <main className="main">
-        <ul>{renderList()}
+        <ul className="main__list">{renderList()}
         </ul>
-      </main>
-      <footer className="footer">
-        <form className="footer__form">
-          <input className="footer__form--input text" type="text" placeholder="Nuevo proyecto" value={name} onChange={handleName} />
+        <form className="main__form">
+          <input className="main__form--input text" type="text" placeholder="Nuevo proyecto" value={name} onChange={handleName} />
           <div className="checkbox">
-            <label className="footer__form--label" htmlFor="oneBoolean"> Encargo</label>
-            <input className="footer__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
-            <label className="footer__form--label" htmlFor="twoBoolean"> Empezado</label>
-            <input className="footer__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
+            <label className="main__form--label" htmlFor="oneBoolean"> Encargo</label>
+            <input className="main__form--input" type="checkbox" checked={oneBoolean} onChange={handleOneBoolean} />
+            <label className="main__form--label" htmlFor="twoBoolean"> Empezado</label>
+            <input className="main__form--input" type="checkbox" checked={twoBoolean} onChange={handleTwoBoolean} />
           </div>
           <div className="buttons">
-            <input className="footer__form--input" type="submit" value="Añadir" onClick={handleSubmit} />
-            <input className="footer__form--input" type="button" value="Reset" onClick={handleReset} />
+            <input className="main__form--input" type="submit" value="Añadir" onClick={handleSubmit} />
+            <input className="main__form--input" type="button" value="Reset" onClick={handleReset} />
           </div>
         </form>
+      </main>
+      <footer className="footer">
       </footer>
 
-    </div>
+    </div >
   );
 }
 
