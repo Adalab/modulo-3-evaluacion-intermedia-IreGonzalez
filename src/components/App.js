@@ -2,17 +2,35 @@
 import '../styles/Reset.scss';
 import '../styles/App.scss';
 import initialData from '../data/knit.json'
-// importamos useEffect además de useState
-import { useState } from 'react';
+import ls from '../services/local-storage';
+import { useState, useEffect } from 'react';
 
 function App() {
 
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(
+    ls.get('data', [
+      {
+        name: '',
+        oneBoolean: '',
+        twoBoolean: '',
+      },
+    ])
+  );
+  const [iData, setIData] = useState(initialData);
   const [name, setName] = useState("");
   const [oneBoolean, setOneBoolean] = useState(false);
   const [twoBoolean, setTwoBoolean] = useState(false);
   const [toDelete, setToDelete] = useState("");
   const [filter, setFilter] = useState('all');
+
+  useEffect(() => {
+    //Guardamos los datos introducidos en el ls
+    ls.set('data', {
+      name: data.name,
+      oneBoolean: data.oneBoolean,
+      twoBoolean: data.twoBoolean,
+    });
+  }, [data]);
 
   const handleName = (ev) => {
     setName(ev.target.value)
@@ -29,7 +47,7 @@ function App() {
     console.log('twoBoolean', twoBoolean);
   };
 
-  //Añadimos la función que creará un nuevo objeto y recogerá los datos introducidos por la usuaria y 
+  //Añadimos la función que creará un nuevo objeto y recogerá los datos introducidos por la usuaria
   const handleSubmit = (ev) => {
     ev.preventDefault();
     const newUnit = {
@@ -39,6 +57,7 @@ function App() {
     };
     //añadimos con el spread nuevos datos
     setData([...data, newUnit])
+    ls.set();
   };
 
   const handleFilter = (ev) => {
@@ -56,33 +75,36 @@ function App() {
     setToDelete(ev.target.id);
     data.splice(toDelete, 1);
     setData([...data]);
+    ls.remove();
   };
 
   const renderList = () => {
-    return data
-      .filter((unit) => {
-        if (filter === 'oneBoolean') {
-          return unit.oneBoolean === true;
-        } else if (filter === 'twoBoolean') {
-          return unit.twoBoolean === true;
+    if (data)
+      return iData
+        .filter((unit) => {
+          if (filter === 'oneBoolean') {
+            return unit.oneBoolean === true;
+          } else if (filter === 'twoBoolean') {
+            return unit.twoBoolean === true;
+          }
+          return true;
+        })
+        .map((unit, index) => {
+          const oneBoolean = unit.oneBoolean ? 'Si' : 'No';
+          const twoBoolean = unit.twoBoolean ? 'Si' : 'No';
+          return (
+            <li className="main__unit" key={index} id={index}>
+              <button className="main__unit--close" onClick={handleDelete}>X</button>
+              <h3 className="main__unit--title">{unit.name}</h3>
+              <div className="main__unit--boolean">
+                <p>Encargo : {oneBoolean}</p>
+                <p>Empezado : {twoBoolean}</p>
+              </div>
+            </li>
+          )
         }
-        return true;
-      })
-      .map((unit, index) => {
-        const oneBoolean = unit.oneBoolean ? 'Si' : 'No';
-        const twoBoolean = unit.twoBoolean ? 'Si' : 'No';
-        return (
-          <li className="main__unit" key={index} id={index}>
-            <button className="main__unit--close" onClick={handleDelete}>X</button>
-            <h3 className="main__unit--title">{unit.name}</h3>
-            <div className="main__unit--boolean">
-              <p>Encargo : {oneBoolean}</p>
-              <p>Empezado : {twoBoolean}</p>
-            </div>
-          </li>
         )
-      }
-      )
+    ls.set();
   };
 
   return (
