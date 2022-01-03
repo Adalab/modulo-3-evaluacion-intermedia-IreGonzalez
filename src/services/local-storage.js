@@ -1,24 +1,28 @@
+
 // Función que obtiene una propiedad del local storage
 // Si esta propiedad no existe porque es la primera vez que la usuaria entra en la página la función devuelve el valor de defaultValue
 // Que esta función devuelva un valor por defecto es una cómoda manera de trabajar, así esta comprobación no la tenemos que hacer App.js
-const getProjects = (key, defaultValue) => {
-    const localStorageData = localStorage.getItem(key);
+const getProjects = (data, projects) => {
+    const localStorageData = localStorage.getItem(data);
+    //Si la lista guardada de favoritos es null, está vacía, por lo que se usará la initialData por defecto
     if (localStorageData === null) {
-        return defaultValue;
-    } else {
+        return setData([...data, projects])
+    }
+    //Si no está vacía se extraen los datos obtenidos del ls
+    else {
         return JSON.parse(localStorageData);
     }
 };
 
 // Función que guarda una propiedad y su valor en el local storage
-const savedProjects = (key, projects) => {
+const savedProjects = (data, projects) => {
     const localStorageData = JSON.stringify(projects);
-    localStorage.setItem('projects', localStorageData);
+    localStorage.setItem(data, localStorageData);
 };
 
 // Función que borra una propiedad del local storage
-const remove = key => {
-    localStorage.removeItem(key);
+const remove = data => {
+    localStorage.removeItem(data);
 };
 
 // Función que limpia todo el local storage

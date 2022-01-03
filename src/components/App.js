@@ -4,18 +4,10 @@ import '../styles/App.scss';
 import initialData from '../data/knit.json'
 import ls from '../services/local-storage';
 import { useState, useEffect } from 'react';
-
+// import Suma from '..testing/Helpers'
 function App() {
 
-  const [data, setData] = useState(
-    ls.get('data', [
-      {
-        name: '',
-        oneBoolean: '',
-        twoBoolean: '',
-      },
-    ])
-  );
+  const [data, setData] = useState([]);
   const [iData, setIData] = useState(initialData);
   const [name, setName] = useState("");
   const [oneBoolean, setOneBoolean] = useState(false);
@@ -23,14 +15,12 @@ function App() {
   const [toDelete, setToDelete] = useState("");
   const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    //Guardamos los datos introducidos en el ls
-    ls.set('data', {
-      name: data.name,
-      oneBoolean: data.oneBoolean,
-      twoBoolean: data.twoBoolean,
-    });
-  }, [data]);
+  // useEffect(() => {
+  //   //Guardamos los datos introducidos en el ls
+  //   ls.get(data, iData);
+  //   console.log(iData);
+  //   console.log(data);
+  // }, [data]);
 
   const handleName = (ev) => {
     setName(ev.target.value)
@@ -57,7 +47,7 @@ function App() {
     };
     //añadimos con el spread nuevos datos
     setData([...data, newUnit])
-    ls.set();
+    ls.set(data);
   };
 
   const handleFilter = (ev) => {
@@ -78,33 +68,31 @@ function App() {
     ls.remove();
   };
 
-  const renderList = () => {
-    if (data)
-      return iData
-        .filter((unit) => {
-          if (filter === 'oneBoolean') {
-            return unit.oneBoolean === true;
-          } else if (filter === 'twoBoolean') {
-            return unit.twoBoolean === true;
-          }
-          return true;
-        })
-        .map((unit, index) => {
-          const oneBoolean = unit.oneBoolean ? 'Si' : 'No';
-          const twoBoolean = unit.twoBoolean ? 'Si' : 'No';
-          return (
-            <li className="main__unit" key={index} id={index}>
-              <button className="main__unit--close" onClick={handleDelete}>X</button>
-              <h3 className="main__unit--title">{unit.name}</h3>
-              <div className="main__unit--boolean">
-                <p>Encargo : {oneBoolean}</p>
-                <p>Empezado : {twoBoolean}</p>
-              </div>
-            </li>
-          )
+  const renderList = (data) => {
+    return data
+      .filter((unit) => {
+        if (filter === 'oneBoolean') {
+          return unit.oneBoolean === true;
+        } else if (filter === 'twoBoolean') {
+          return unit.twoBoolean === true;
         }
+        return true;
+      })
+      .map((unit, index) => {
+        const oneBoolean = unit.oneBoolean ? 'Si' : 'No';
+        const twoBoolean = unit.twoBoolean ? 'Si' : 'No';
+        return (
+          <li className="main__unit" key={index} id={index}>
+            <button className="main__unit--close" onClick={handleDelete}>X</button>
+            <h3 className="main__unit--title">{unit.name}</h3>
+            <div className="main__unit--boolean">
+              <p>Encargo : {oneBoolean}</p>
+              <p>Empezado : {twoBoolean}</p>
+            </div>
+          </li>
         )
-    ls.set();
+      }
+      )
   };
 
   return (
@@ -115,10 +103,11 @@ function App() {
           <option className="header__select--option" value="oneBoolean">Encargos</option>
           <option className="header__select--option" value="all">Todos</option>
           <option className="header__select--option" value="twoBoolean">Empezados</option>
+          {/* <Suma /> */}
         </select>
       </header>
       <main className="main">
-        <ul className="main__list">{renderList()}
+        <ul className="main__list">{renderList(data)}
         </ul>
         <form className="main__form">
           <input className="main__form--input text" type="text" placeholder="Nuevo proyecto" value={name} onChange={handleName} />
