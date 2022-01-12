@@ -7,8 +7,7 @@ import { useState, useEffect } from 'react';
 // import Suma from '..testing/Helpers'
 function App() {
 
-  const [data, setData] = useState([]);
-  const [iData, setIData] = useState(initialData);
+  const [data, setData] = useState(initialData);
   const [name, setName] = useState("");
   const [oneBoolean, setOneBoolean] = useState(false);
   const [twoBoolean, setTwoBoolean] = useState(false);
@@ -46,8 +45,8 @@ function App() {
       "twoBoolean": twoBoolean
     };
     //añadimos con el spread nuevos datos
-    setData([...data, newUnit])
-    ls.set(data);
+    // setData([...data, newUnit])
+    // ls.set(data);
   };
 
   const handleFilter = (ev) => {
@@ -65,7 +64,7 @@ function App() {
     setToDelete(ev.target.id);
     data.splice(toDelete, 1);
     setData([...data]);
-    ls.remove();
+    // ls.remove();
   };
 
   const renderList = (data) => {
